@@ -1,33 +1,40 @@
 import React from 'react';
 
-const DumbLogin = ({onChange, onClickLogin, onClickCreateUser}) => (
+const DumbLogin = ({onChange, onClickLogin, onClickLoginOwner, onClickCreateUser, onClickCreateOwner}) => (
 
     <div>
-        <label>
-            User Name:
-        </label>
-        <input
-            onChange={e => onChange("username", e.target.value)}/>
+
+            <label>
+                    User Name:
+            </label>
+            <input
+                onChange={e => onChange("username", e.target.value)}/>
 
 
-        <label>
-            Password:
-        </label>
+            <label>
+                    Password:
+            </label>
 
-        <input
-            onChange={e => onChange("password", e.target.value)}/>
+            <input type="password"
+                   onChange={e => onChange("password", e.target.value)}/>
 
 
 
-        <button
-            onClick={onClickLogin}> Login
-        </button>
+            <button
+                onClick={onClickLogin}> Login Investor
+            </button>
 
-        <button
-            onClick={onClickCreateUser}> Create Account
+            <button
+                onClick={onClickLoginOwner}> Login Owner
+            </button>
 
-        </button>
+            <button
+                onClick={onClickCreateUser}> Create Investor
+            </button>
 
+            <button
+                onClick={onClickCreateOwner}> Create Owner
+            </button>
 
     </div>
 

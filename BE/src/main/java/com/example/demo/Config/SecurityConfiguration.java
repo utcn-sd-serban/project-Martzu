@@ -1,6 +1,6 @@
-package com.example.assig1.config;
+package com.example.demo.Config;
 
-import com.example.assig1.service.StackUserDetailsService;
+import com.example.demo.Service.UserDetailsServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,10 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final StackUserDetailsService userDetailsService;
+    private final UserDetailsServices userDetailsService;
     protected void configure(HttpSecurity http) throws Exception
     {
-        http.authorizeRequests().antMatchers("/create-investor").permitAll().
+        http.authorizeRequests().antMatchers("/create-investor", "/create-owner").permitAll().
                 anyRequest().authenticated().and()
                 .httpBasic().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
@@ -37,4 +37,3 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
-

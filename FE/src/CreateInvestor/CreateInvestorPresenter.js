@@ -10,6 +10,7 @@ class CreateInvestorPresenter
 
     onClick()
     {
+        debugger;
         investor.addInvestor();
         investor.changeNewInvestor("username", "");
         investor.changeNewInvestor("password", "");

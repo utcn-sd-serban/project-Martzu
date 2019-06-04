@@ -1,10 +1,14 @@
 import { EventEmitter} from "events";
-
+import RestInvestor from "../rest/restInvestor";
+import ownedStocks from "./OwnedStocks";
+import transaction from "./Transaction";
+import company from "./Company";
 class Investor extends EventEmitter
 {
     constructor()
     {
         super();
+        this.restInvestor = new RestInvestor();
         this.state =
             {
               investors: [
@@ -50,31 +54,41 @@ class Investor extends EventEmitter
         this.emit("change", this.state);
     }
 
-    //in memory, different login for frontEnd to backEnd
     verifyInvestor()
     {
-        debugger;
-        const result = this.state.investors.find(investor => investor.username === this.state.currentInvestor.username && investor.password === this.state.currentInvestor.password);
-        debugger;
-        if (typeof result === 'undefined')
-        {
-            //set window
-            window.location.assign("#/");
-        }
-        else
-        {
-            window.location.assign("#/company");
-        }
+        this.restInvestor.setUser(this.state.currentInvestor.username, this.state.currentInvestor.password);
+
+        this.restInvestor.login().then(response =>{
+            if (response.status === 200)
+            {
+                company.getAllCompanies();
+                ownedStocks.getStocksOfInvestor();
+                transaction.getTransactionsOfUser();
+                window.location.assign("#/company");
+            }
+            else
+            {
+                window.location.assign("#/");
+            }
+        });
+
     }
+
+
+
 
     addInvestor()
     {
-        this.state = {
-            ...this.state,
-            investors : this.state.investors.concat(this.state.newInvestor)
-        };
+        debugger;
+        return this.restInvestor.create(this.state.newInvestor.username, this.state.newInvestor.password)
+            .then(investor => {
+                this.state = {
+                    ...this.state,
+                    investors: this.state.investors.concat([investor])
+                };
+                this.emit("change", this.state);
+            });
 
-        this.emit("change", this.state);
     }
 
 

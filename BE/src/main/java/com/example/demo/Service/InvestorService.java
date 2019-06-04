@@ -20,6 +20,8 @@ public class InvestorService {
 
     private final RepositoryFactory repositoryFactory;
 
+
+
     @Transactional
     public List<Investor> listAllInvestors()
     {
@@ -38,9 +40,11 @@ public class InvestorService {
         return repositoryFactory.createInvestorRepository().findByUsername(username);
     }
 
+
+    @Transactional
     public Investor addInvestor(String username, String password)
     {
-        Investor investor = new Investor(username, password, 10000);
+        Investor investor = new Investor(username, password);
         return repositoryFactory.createInvestorRepository().save(investor);
     }
 

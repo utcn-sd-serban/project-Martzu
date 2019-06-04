@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 
-import companyPresenter from "./CompanyPresenter";
-import investor from "../Model/Investor";
-import DumbCompany from "./DumbCompany"
+import company from "../Model/Company";
+import DumbCompany from "./DumbCompany";
 
 const mapModelStateToComponentState = modelState => ({
-    currentInvestor: modelState.currentInvestor
+    companies: modelState.companies
 
 });
 
@@ -13,20 +12,20 @@ export default class SmartCreateUser extends Component{
     constructor()
     {
         super();
-        this.state = mapModelStateToComponentState(investor.state)
+        this.state = mapModelStateToComponentState(company.state);
         this.listener = modelState => this.setState(mapModelStateToComponentState(modelState));
-        investor.addListener("change", this.listener);
+        company.addListener("change", this.listener);
 
     }
 
     componentWillUnmount() {
-        investor.removeListener("change", this.listener);
+        company.removeListener("change", this.listener);
     }
 
     render(){
         return(
             <DumbCompany
-                onClick={companyPresenter.logout}
+                companies={this.state.companies}
             />
         );
     }

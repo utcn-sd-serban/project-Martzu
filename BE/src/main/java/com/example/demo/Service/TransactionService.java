@@ -95,10 +95,7 @@ public class TransactionService {
 
     }
 
-
-
-    @Transactional
-    public void updateSharePrice(Company company)
+    private void updateSharePrice(Company company)
     {
         repositoryFactory.createOwnedStockRepository().findAllStocksOwnedAtACompany(company.getId()).forEach(ownedStocks -> {
             ownedStocks.setStockPrice(company.getSharePrice());

@@ -4,12 +4,13 @@ import createInvestorPresenter from "./CreateInvestorPresenter";
 import investor from "../Model/Investor";
 import DumbCreateInvestor from "./DumbCreateInvestor"
 
+
 const mapModelStateToComponentState = modelState => ({
     newInvestor: modelState.newInvestor
 
 });
 
-export default class SmartCreateUser extends Component{
+export default class SmartCreateInvestor extends Component{
     constructor()
     {
         super();

@@ -1,10 +1,11 @@
 import investor from "../Model/Investor"
-
+import owner from "../Model/Owner"
 class LoginPresenter
 {
     changeLoginProperties(property, value)
     {
         investor.changeCurrentInvestor(property, value);
+        owner.changeCurrentOwnerProperties(property, value);
     }
 
     verifyUser()
@@ -12,9 +13,21 @@ class LoginPresenter
         investor.verifyInvestor();
     }
 
-    changeCreateAccount()
+
+
+    changeCreateInvestor()
     {
         window.location.assign("#/create-investor");
+    }
+
+    changeCreateOwner()
+    {
+        window.location.assign("#/create-owner");
+    }
+
+    verifyOwner()
+    {
+        owner.verifyUser();
     }
 }
 

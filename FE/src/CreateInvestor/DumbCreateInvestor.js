@@ -17,8 +17,9 @@ const DumbCreateInvestor = ({onChange, onClick}) => (
 
 
         <button
-            onClick={onClick}> Create
+            onClick={onClick}> Create Investor
         </button>
+
 
     </div>
 

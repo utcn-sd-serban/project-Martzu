@@ -12,7 +12,7 @@ export default class SmartLogin extends Component{
     constructor()
     {
         super();
-        this.state = mapModelStateToComponentState(investor.state)
+        this.state = mapModelStateToComponentState(investor.state);
         this.listener = modelState => this.setState(mapModelStateToComponentState(modelState));
         investor.addListener("change", this.listener);
 
@@ -27,7 +27,9 @@ export default class SmartLogin extends Component{
             <DumbLogin
                 onChange={loginPresenter.changeLoginProperties}
                 onClickLogin={loginPresenter.verifyUser}
-                onClickCreateUser={loginPresenter.changeCreateAccount}
+                onClickLoginOwner={loginPresenter.verifyOwner}
+                onClickCreateUser={loginPresenter.changeCreateInvestor}
+                onClickCreateOwner={loginPresenter.changeCreateOwner}
             />
         );
     }

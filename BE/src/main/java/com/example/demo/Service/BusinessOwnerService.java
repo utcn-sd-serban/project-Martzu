@@ -6,6 +6,10 @@ import com.example.demo.Model.Company;
 import com.example.demo.Persistence.API.RepositoryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -13,12 +17,29 @@ public class BusinessOwnerService {
 
     private final RepositoryFactory repositoryFactory;
 
-    public BusinessOwner createOnwer(String username, String password)
+
+    @Transactional
+    public List<BusinessOwner> findAllOwners()
+    {
+        return repositoryFactory.createBusinessOwnerRepository().findAll();
+    }
+
+    @Transactional
+    public BusinessOwner createOwner(String username, String password)
     {
         BusinessOwner businessOwner = new BusinessOwner(username, password);
         return repositoryFactory.createBusinessOwnerRepository().save(businessOwner);
     }
 
+
+    @Transactional
+    public Optional<BusinessOwner> findOwnerByUsername(String username)
+    {
+        return repositoryFactory.createBusinessOwnerRepository().findByUsername(username);
+    }
+
+
+    @Transactional
     public void performSplit(String split, String company) throws Exception
     {
         final int n = Integer.parseInt(split.split("-")[0]);
@@ -39,6 +60,7 @@ public class BusinessOwnerService {
 
         repositoryFactory.createCompanyRepository().save(company1);
     }
+
 
     private void updateStocks(final int n, final int m, int companyId)
     {
